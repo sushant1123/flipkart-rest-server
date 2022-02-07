@@ -1,6 +1,7 @@
 //models
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 exports.signup = (req, res) => {
 	//finding if email already exists or not.
@@ -40,7 +41,7 @@ exports.signup = (req, res) => {
 			if (error) {
 				return res.status(400).json({
 					message: "Something went wrong",
-					errorMsg: JSON.stringify(error),
+					errorMsg: error.message,
 				});
 			}
 			if (createdUser) {
