@@ -13,6 +13,6 @@ router.post("/signup", authController.signup);
 // 	res.status(200).json({ user: "profile" });
 // });
 
-router.all("*", invalidRoute);
+// router.all("*", invalidRoute);
 
 module.exports = router;

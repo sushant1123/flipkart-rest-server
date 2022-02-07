@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
 			username: Math.random().toString(), // logic not defined yet
 		});
 
-		//save method creates ad saves a document in the collection and returns 2 objects
+		//save method creates and saves a document in the collection and have 2 objects in its callback
 		//1: error obj
 		//2: created obj
 
@@ -53,6 +53,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+	//find if email already exists or not
 	UserModel.findOne({ email: req.body.email }).exec((error, user) => {
 		if (error) {
 			return res.status(500).json({
@@ -60,8 +61,10 @@ exports.signin = (req, res) => {
 			});
 		}
 
+		//if use exists with email then check its password and for admin check if role is admin or not
 		if (user) {
 			if (user.authenticate(req.body.password)) {
+				//jwt sign with the payload as 1st, secret key as 2nd and expiresIn as 3rd argument
 				const token = jwt.sign(
 					{ _id: user._id },
 					process.env.JWT_SECRET,

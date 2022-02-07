@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 //routes
-const authRoutes = require("./routes/auth");
-const adminRoutes = require("./routes/admin/auth");
+const authRoutes = require("./routes/auth"); //user routes
+const adminRoutes = require("./routes/admin/auth"); //admin routes
+const { invalidRoute } = require("./controllers/other");
 
 //env variables or constants
 dotenv.config();
@@ -31,6 +32,9 @@ mongoose
 app.use(bodyParser.json());
 app.use("/api/user", authRoutes);
 app.use("/api/admin", adminRoutes);
+
+////if client hits any url which is not from the above routes, then it gives invalid route error
+app.use("*", invalidRoute);
 
 // console.log("bdkfbdfb");
 
