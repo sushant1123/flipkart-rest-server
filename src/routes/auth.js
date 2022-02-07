@@ -15,18 +15,17 @@ const {
 
 router.post(
 	"/signin",
-	validateSignInRequest,
-	isRequestValidated,
-	authController.signin
+	validateSignInRequest, //calls the given fn and validate the request
+	isRequestValidated, //calls the given fn and returns if request is validated successfully or not
+	authController.signin //if request is validated, result is then passed to the signup controller fn
 );
 
 router.post(
 	"/signup",
 
-	validateSignupRequest,
-	isRequestValidated,
-	//result is then passed to the signup controller fn
-	authController.signup
+	validateSignupRequest, //calls the given fn and validate the request
+	isRequestValidated, //calls the given fn and returns if request is validated successfully or not
+	authController.signup //if request is validated, result is then passed to the signup controller fn
 );
 
 // router.post("/profile", authController.requireSignin, (req, res) => {
