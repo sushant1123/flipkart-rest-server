@@ -67,7 +67,7 @@ exports.signin = (req, res) => {
 			if (user.authenticate(req.body.password)) {
 				//jwt sign with the payload as 1st, secret key as 2nd and expiresIn as 3rd argument
 				const token = jwt.sign(
-					{ _id: user._id },
+					{ _id: user._id, role: user.role },
 					process.env.JWT_SECRET,
 					{ expiresIn: "3d" }
 				);
@@ -98,19 +98,4 @@ exports.signin = (req, res) => {
 			});
 		}
 	});
-};
-
-exports.requireSignin = (req, res, next) => {
-	const token = req.headers.authorization.split(" ")[1];
-	// console.log(token);
-
-	//will verify the token and return the data we associated with the sign fn of jwt after decoding.
-	// In our case. it is _id
-
-	const user = jwt.verify(token, process.env.JWT_SECRET);
-
-	//attaching the user with request obj
-	req.user = user;
-
-	next();
 };

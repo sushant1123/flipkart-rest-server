@@ -1,13 +1,21 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
 
-//routes
+//import routes
 const authRoutes = require("./routes/auth"); //user routes
 const adminRoutes = require("./routes/admin/auth"); //admin routes
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
 const { invalidRoute } = require("./controllers/other");
+const cartRoutes = require("./routes/cart");
+
+//import middleware
+const morgan = require("morgan");
+const errorLogger = require("./utilities/errorLogger");
 
 //env variables or constants
 dotenv.config();
@@ -28,15 +36,25 @@ mongoose
 	});
 
 //middlewares
-// app.use(express.json());
-app.use(bodyParser.json());
-app.use("/api/user", authRoutes);
-app.use("/api/admin", adminRoutes);
+let LogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+	flags: "a",
+});
+app.use(morgan("combined", { stream: LogStream }));
+app.use(express.json());
+app.use("/public", express.static(path.join(__dirname, "uploads")));
+
+//routes
+app.use("/api", authRoutes);
+app.use("/api", adminRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+app.use("/api", cartRoutes);
 
 ////if client hits any url which is not from the above routes, then it gives invalid route error
-app.use("*", invalidRoute);
+// app.use("*", invalidRoute);
 
-// console.log("bdkfbdfb");
+//if there is any error
+app.use(errorLogger);
 
 app.listen(PORT, () => {
 	console.log("Server is running on port", PORT);

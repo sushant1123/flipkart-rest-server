@@ -14,14 +14,14 @@ const {
 } = require("../validators/authValidator");
 
 router.post(
-	"/signin",
+	"/user/signin",
 	validateSignInRequest, //calls the given fn and validate the request
 	isRequestValidated, //calls the given fn and returns if request is validated successfully or not
 	authController.signin //if request is validated, result is then passed to the signup controller fn
 );
 
 router.post(
-	"/signup",
+	"/user/signup",
 
 	validateSignupRequest, //calls the given fn and validate the request
 	isRequestValidated, //calls the given fn and returns if request is validated successfully or not

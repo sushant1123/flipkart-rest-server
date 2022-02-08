@@ -1,0 +1,5 @@
+Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\uploads\3gBYqmmRM-coach.png'
+Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\ecommerce-back-end\src\uploads\-9vkj92cT-coach.png'
+Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\ecommerce-back-end\src\src\uploads\0bo4HMGjk-coach.png'
+Tue Feb 08 2022 - Unexpected token / in JSON at position 0
+Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\ecommerce-back-end\src\uploads\categoryPictures\py6ADbMh8-huawei-img.jpg'
