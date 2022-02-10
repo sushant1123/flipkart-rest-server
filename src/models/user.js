@@ -64,13 +64,13 @@ const UserSchema = new mongoose.Schema(
 
 // console.log(process.env.PASSWORD_SALT_ROUNDS);
 
-UserSchema.virtual("password").set(function (password) {
-	//hashSync method returns a hashed password by applying salt rounds (more encryption) on the password
-	this.hashed_password = bcrypt.hashSync(
-		password,
-		parseInt(process.env.PASSWORD_SALT_ROUNDS)
-	);
-});
+// UserSchema.virtual("password").set(function (password) {
+// 	//hashSync method returns a hashed password by applying salt rounds (more encryption) on the password
+// 	this.hashed_password = bcrypt.hashSync(
+// 		password,
+// 		parseInt(process.env.PASSWORD_SALT_ROUNDS)
+// 	);
+// });
 
 //creates a virtual field called 'fullName'
 UserSchema.virtual("fullName").get(function () {
@@ -79,10 +79,10 @@ UserSchema.virtual("fullName").get(function () {
 
 //instance methods (own custom document instance methods )
 UserSchema.methods = {
-	authenticate: function (password) {
+	authenticate: async function (password) {
 		// arrow fn won't work here
 		//compare method compares the given password and hashed_password and return the result
-		return bcrypt.compareSync(password, this.hashed_password);
+		return await bcrypt.compare(password, this.hashed_password);
 	},
 };
 

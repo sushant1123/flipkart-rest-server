@@ -27,10 +27,4 @@ router.post(
 
 router.post("/admin/signout", requireSignin, signout);
 
-// router.post("/profile", authController.requireSignin, (req, res) => {
-// 	res.status(200).json({ user: "profile" });
-// });
-
-// router.all("*", invalidRoute);
-
 module.exports = router;

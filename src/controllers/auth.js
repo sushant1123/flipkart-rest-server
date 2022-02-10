@@ -1,11 +1,13 @@
 //models
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
+const shortid = require("shortid");
 
 exports.signup = (req, res) => {
 	//finding if email already exists or not.
-	UserModel.findOne({ email: req.body.email }).exec((error, user) => {
+	UserModel.findOne({ email: req.body.email }).exec(async (error, user) => {
 		//if error return the error response
 		if (error) {
 			return res.status(400).json({
@@ -24,13 +26,16 @@ exports.signup = (req, res) => {
 		//distructure required fields from the req.body to create a userObj
 		const { firstName, lastName, email, password } = req.body;
 
+		const saltRounds = parseInt(process.env.PASSWORD_SALT_ROUNDS);
+		const hashed_password = await bcrypt.hash(password, saltRounds);
+
 		//User Object
 		const userObj = new UserModel({
 			firstName,
 			lastName,
 			email,
-			password,
-			username: Math.random().toString(), // logic not defined yet
+			hashed_password,
+			username: email.split("@")[0] + shortid.generate(),
 		});
 
 		//save method creates and saves a document in the collection and have 2 objects in its callback
