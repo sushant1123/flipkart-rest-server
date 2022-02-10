@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors");
 
 //import routes
 const authRoutes = require("./routes/auth"); //user routes
@@ -41,6 +42,7 @@ let LogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
 });
 app.use(morgan("combined", { stream: LogStream }));
 app.use(express.json());
+app.use(cors());
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
 //routes

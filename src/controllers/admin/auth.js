@@ -72,6 +72,9 @@ exports.signin = (req, res) => {
 					{ expiresIn: "3d" }
 				);
 
+				//saving token as a cookie
+				res.cookie("token", token, { expiresIn: "3d" });
+
 				// destructure from the user obj
 				const { _id, firstName, lastName, email, role, fullName } =
 					user;
@@ -99,5 +102,12 @@ exports.signin = (req, res) => {
 				// errorMsg: error,
 			});
 		}
+	});
+};
+
+exports.signout = (req, res) => {
+	res.clearCookie("token");
+	res.status(200).json({
+		message: "Signed-out successfully...!",
 	});
 };

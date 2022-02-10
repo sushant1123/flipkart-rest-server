@@ -86,6 +86,7 @@ const createNestedCategoryList = (categories, parentId = null) => {
 		nestedCategoryList.push({
 			_id: cat._id,
 			name: cat.name,
+			parentId: cat.parentId,
 			slug: cat.slug,
 			subCategories: createNestedCategoryList(categories, cat._id),
 		});
