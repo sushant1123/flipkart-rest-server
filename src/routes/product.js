@@ -1,5 +1,8 @@
 const express = require("express");
-const { createProduct } = require("../controllers/product");
+const {
+	createProduct,
+	getAllProductsBySlug,
+} = require("../controllers/product");
 const {
 	requireSignin,
 	adminMiddleware,
@@ -30,6 +33,6 @@ router.post(
 );
 
 //fetch all products
-// router.get("/getCategories", getAllCategories);
+router.get("/products/:slug", getAllProductsBySlug);
 
 module.exports = router;

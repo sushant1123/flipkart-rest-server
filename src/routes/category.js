@@ -1,5 +1,10 @@
 const express = require("express");
-const { createCategory, getAllCategories } = require("../controllers/category");
+const {
+	createCategory,
+	getAllCategories,
+	updateCategories,
+	deleteCategories,
+} = require("../controllers/category");
 const {
 	requireSignin,
 	adminMiddleware,
@@ -32,5 +37,20 @@ router.post(
 
 //fetch all categories
 router.get("/category/getCategories", getAllCategories);
+
+router.post(
+	"/category/update",
+	requireSignin,
+	multerUpload.array("categoryPicture"),
+	adminMiddleware,
+	updateCategories
+);
+
+router.post(
+	"/category/delete",
+	requireSignin,
+	adminMiddleware,
+	deleteCategories
+);
 
 module.exports = router;
