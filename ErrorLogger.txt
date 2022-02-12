@@ -3,3 +3,24 @@ Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce
 Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\ecommerce-back-end\src\src\uploads\0bo4HMGjk-coach.png'
 Tue Feb 08 2022 - Unexpected token / in JSON at position 0
 Tue Feb 08 2022 - ENOENT: no such file or directory, open 'D:\STG\mern-ecommerce\ecommerce-back-end\src\uploads\categoryPictures\py6ADbMh8-huawei-img.jpg'
+Sat Feb 12 2022 - jwt expired
+Sat Feb 12 2022 - log is not defined
+Sat Feb 12 2022 - Found non-callable @@iterator
+Sat Feb 12 2022 - Found non-callable @@iterator
+Sat Feb 12 2022 - shortid is not defined
+Sat Feb 12 2022 - description is not defined
+Sat Feb 12 2022 - description is not defined
+Sat Feb 12 2022 - newBanners is not defined
+Sat Feb 12 2022 - Assignment to constant variable.
+Sat Feb 12 2022 - Assignment to constant variable.
+Sat Feb 12 2022 - jwt expired
+Sat Feb 12 2022 - Cannot read properties of undefined (reading '_id')
+Sat Feb 12 2022 - jwt expired
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - category is not defined
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.

@@ -2,6 +2,7 @@ const express = require("express");
 const {
 	createProduct,
 	getAllProductsBySlug,
+	getAllProductsData,
 } = require("../controllers/product");
 const {
 	requireSignin,
@@ -32,7 +33,9 @@ router.post(
 	createProduct
 );
 
-//fetch all products
+router.get("/products/getProducts", getAllProductsData);
+
+//fetch product by slug id
 router.get("/products/:slug", getAllProductsBySlug);
 
 module.exports = router;

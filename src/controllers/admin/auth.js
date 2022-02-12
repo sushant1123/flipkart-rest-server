@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
 		if (error) {
 			return res.status(400).json({
 				message: "Something went wrong",
-				errorMsg: JSON.stringify(error),
+				errormsg: JSON.stringify(error),
 			});
 		}
 
@@ -98,13 +98,11 @@ exports.signin = (req, res) => {
 			} else {
 				return res.status(400).json({
 					message: "Invalid admin credentials",
-					// errorMsg: error,
 				});
 			}
 		} else {
 			return res.status(500).json({
 				message: "Something went wrong",
-				// errorMsg: error,
 			});
 		}
 	});

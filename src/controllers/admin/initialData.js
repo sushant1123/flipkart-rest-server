@@ -6,7 +6,7 @@ exports.initialDataRequest = async (req, res) => {
 	const categories = await CategoryModel.find({}).exec();
 	const products = await ProductModel.find({})
 		.select(
-			"_id name price quantity slug description productPictures category"
+			"_id name price quantity slug description productPictures category type"
 		)
 		.populate({ path: "category", select: "_id name" })
 		.exec();
@@ -42,6 +42,7 @@ const createNestedCategoryList = (categories, parentId = null) => {
 			name: cat.name,
 			parentId: cat.parentId,
 			slug: cat.slug,
+			type: cat.type,
 			subCategories: createNestedCategoryList(categories, cat._id),
 		});
 	}

@@ -18,11 +18,11 @@ exports.createProduct = (req, res) => {
 
 	const productObj = new ProductModel({
 		name,
-		slug: slugify(name),
+		slug: `${slugify(name)}-${shortId.generate()}`,
 		category,
 		price,
 		quantity,
-		description,
+		description: description ? description : "NA",
 		productPictures,
 		createdBy: req.user._id,
 	});
@@ -101,9 +101,23 @@ exports.getAllProductsBySlug = (req, res) => {
 						});
 					});
 			} else {
-				res.status(200).json({
+				res.status(404).json({
 					message: "Category not found",
 				});
 			}
 		});
+};
+
+exports.getAllProductsData = async (req, res) => {
+	try {
+		const products = await ProductModel.find({});
+
+		res.status(200).json({
+			products,
+		});
+	} catch (error) {
+		res.status(200).json({
+			error: error.response.data,
+		});
+	}
 };

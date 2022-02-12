@@ -7,6 +7,7 @@ const slugify = require("slugify");
 const shortid = require("shortid");
 
 exports.createCategory = (req, res) => {
+	console.log(req.body);
 	const categoryObj = {
 		name: req.body.name,
 		slug: `${slugify(req.body.name)}-${shortid.generate()}`,
@@ -89,6 +90,7 @@ const createNestedCategoryList = (categories, parentId = null) => {
 			name: cat.name,
 			parentId: cat.parentId,
 			slug: cat.slug,
+			type: cat.type,
 			subCategories: createNestedCategoryList(categories, cat._id),
 		});
 	}
@@ -166,6 +168,6 @@ exports.deleteCategories = async (req, res) => {
 	if (deletedCategoriesList.length === ids.length) {
 		res.status(200).json({ message: "Categories removed successfully" });
 	} else {
-		res.status(400).json({ message: "Something went wrong...!" });
+		res.status(500).json({ message: "Something went wrong...!" });
 	}
 };
