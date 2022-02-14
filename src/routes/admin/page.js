@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const router = express.Router();
-const { createPage } = require("../../controllers/admin/page");
+const { createPage, getPage } = require("../../controllers/admin/page");
 const { upload } = require("../../middlewares/fileUploadMiddleware");
 const {
 	adminMiddleware,
@@ -15,5 +15,7 @@ router.post(
 	adminMiddleware,
 	createPage
 );
+
+router.get("/page/:category/:type", getPage);
 
 module.exports = router;

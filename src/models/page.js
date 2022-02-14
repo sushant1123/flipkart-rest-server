@@ -28,6 +28,7 @@ const PageSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Category",
 			required: true,
+			unique: true,
 		},
 		createdBy: {
 			type: mongoose.Schema.Types.ObjectId,

@@ -121,3 +121,26 @@ exports.getAllProductsData = async (req, res) => {
 		});
 	}
 };
+
+exports.getProductDetailsById = async (req, res) => {
+	console.log(req.params);
+	try {
+		const { productId } = req.params;
+		if (productId) {
+			ProductModel.findOne({ _id: productId }).exec((error, product) => {
+				if (error) {
+					return res.status(400).json({ error });
+				}
+
+				if (product) {
+					return res.status(200).json({ product });
+				}
+			});
+		} else {
+			return res.status(400).json({ message: "Params required" });
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ error });
+	}
+};

@@ -3,6 +3,7 @@ const {
 	createProduct,
 	getAllProductsBySlug,
 	getAllProductsData,
+	getProductDetailsById,
 } = require("../controllers/product");
 const {
 	requireSignin,
@@ -37,5 +38,8 @@ router.get("/products/getProducts", getAllProductsData);
 
 //fetch product by slug id
 router.get("/products/:slug", getAllProductsBySlug);
+
+//fetch product by productId id
+router.get("/product/:productId", getProductDetailsById);
 
 module.exports = router;

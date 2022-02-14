@@ -4,6 +4,7 @@ const router = express.Router();
 //user controller
 const authController = require("../controllers/auth");
 const { invalidRoute } = require("../controllers/other");
+const { requireSignin } = require("../middlewares/requireSignIn");
 
 //auth validators
 const {
@@ -31,6 +32,8 @@ router.post(
 // router.post("/profile", authController.requireSignin, (req, res) => {
 // 	res.status(200).json({ user: "profile" });
 // });
+
+router.post("/user/signout", requireSignin, authController.signout);
 
 // router.all("*", invalidRoute);
 

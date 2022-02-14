@@ -11,6 +11,7 @@ exports.createCategory = (req, res) => {
 	const categoryObj = {
 		name: req.body.name,
 		slug: `${slugify(req.body.name)}-${shortid.generate()}`,
+		createdBy: req.user._id,
 	};
 
 	if (req.file) {

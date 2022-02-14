@@ -68,7 +68,8 @@ exports.signin = (req, res) => {
 		}
 
 		//if use exists with email then check its password and for admin check if role is admin or not
-		if (user) {
+		if (user && user.role === "user") {
+			// if (user.authenticate(req.body.password) && user.role === "user") {
 			if (user.authenticate(req.body.password)) {
 				//jwt sign with the payload as 1st, secret key as 2nd and expiresIn as 3rd argument
 				const token = jwt.sign(
@@ -93,14 +94,19 @@ exports.signin = (req, res) => {
 			} else {
 				return res.status(400).json({
 					message: "Invalid user credentials",
-					// errorMsg: error,
 				});
 			}
 		} else {
 			return res.status(500).json({
 				message: "Something went wrong",
-				// errorMsg: error,
 			});
 		}
+	});
+};
+
+exports.signout = (req, res) => {
+	res.clearCookie("token");
+	res.status(200).json({
+		message: "User signed-out successfully...!",
 	});
 };
