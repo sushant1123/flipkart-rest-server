@@ -24,3 +24,4 @@ Sun Feb 13 2022 - category is not defined
 Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
 Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
 Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
+Tue Feb 15 2022 - jwt expired

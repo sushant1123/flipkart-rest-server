@@ -15,6 +15,7 @@ const { invalidRoute } = require("./controllers/other");
 const cartRoutes = require("./routes/cart");
 const intitialDataRoute = require("./routes/admin/initialData");
 const pageRoutes = require("./routes/admin/page");
+const addressRoutes = require("./routes/address");
 
 //import middleware
 const morgan = require("morgan");
@@ -55,6 +56,7 @@ app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", intitialDataRoute);
 app.use("/api", pageRoutes);
+app.use("/api", addressRoutes);
 
 ////if client hits any url which is not from the above routes, then it gives invalid route error
 // app.use("*", invalidRoute);
