@@ -50,9 +50,7 @@ exports.signup = (req, res) => {
 				});
 			}
 			if (createdUser) {
-				return res
-					.status(201)
-					.json({ message: "User created successfully....!" });
+				return res.status(201).json({ message: "User created successfully....!" });
 			}
 		});
 	});
@@ -60,7 +58,7 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
 	//find if email already exists or not
-	UserModel.findOne({ email: req.body.email }).exec((error, user) => {
+	UserModel.findOne({ email: req.body.email }).exec(async (error, user) => {
 		if (error) {
 			return res.status(500).json({
 				error,
@@ -70,15 +68,13 @@ exports.signin = (req, res) => {
 		//if use exists with email then check its password and for admin check if role is admin or not
 		if (user && user.role === "user") {
 			// if (user.authenticate(req.body.password) && user.role === "user") {
-			if (user.authenticate(req.body.password)) {
+			const isPasswordCorrect = await user.authenticate(req.body.password);
+			if (isPasswordCorrect) {
 				//jwt sign with the payload as 1st, secret key as 2nd and expiresIn as 3rd argument
-				const token = jwt.sign(
-					{ _id: user._id, role: user.role },
-					process.env.JWT_SECRET,
-					{ expiresIn: "3d" }
-				);
-				const { _id, firstName, lastName, email, role, fullName } =
-					user;
+				const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
+					expiresIn: "3d",
+				});
+				const { _id, firstName, lastName, email, role, fullName } = user;
 
 				return res.status(200).json({
 					token,

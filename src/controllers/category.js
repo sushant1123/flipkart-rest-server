@@ -15,8 +15,7 @@ exports.createCategory = (req, res) => {
 	};
 
 	if (req.file) {
-		categoryObj.categoryPicture =
-			`http://localhost:${process.env.PORT}/public/` + req.file.filename;
+		categoryObj.categoryPicture = `http://localhost:${process.env.PORT}/public/` + req.file.filename;
 	}
 
 	//if we get parentId in the req.body then only add to categoryObj
@@ -74,15 +73,11 @@ const createNestedCategoryList = (categories, parentId = null) => {
 
 	//if parentId is null, filter all the parent level categories
 	if (parentId == null) {
-		category = categories.filter(
-			(singleCategory) => singleCategory.parentId == undefined
-		);
+		category = categories.filter((singleCategory) => singleCategory.parentId == undefined);
 	}
 	//if parentId is not null, filter all the categories based on parentId
 	else {
-		category = categories.filter(
-			(singleCategory) => singleCategory.parentId == parentId
-		);
+		category = categories.filter((singleCategory) => singleCategory.parentId == parentId);
 	}
 
 	for (let cat of category) {
@@ -117,14 +112,10 @@ exports.updateCategories = async (req, res) => {
 				category.parentId = parentId[i];
 			}
 
-			const updatedCategory = await Category.findOneAndUpdate(
-				{ _id: _id[i] },
-				category,
-				{
-					new: true,
-					runValidators: true,
-				}
-			);
+			const updatedCategory = await Category.findOneAndUpdate({ _id: _id[i] }, category, {
+				new: true,
+				runValidators: true,
+			});
 			updatedCategories.push(updatedCategory);
 		}
 		return res.status(201).json({
@@ -140,14 +131,10 @@ exports.updateCategories = async (req, res) => {
 			category.parentId = parentId;
 		}
 
-		const updatedCategory = await Category.findOneAndUpdate(
-			{ _id: _id },
-			category,
-			{
-				new: true,
-				runValidators: true,
-			}
-		);
+		const updatedCategory = await Category.findOneAndUpdate({ _id: _id }, category, {
+			new: true,
+			runValidators: true,
+		});
 
 		return res.status(201).json({
 			updatedCategory,

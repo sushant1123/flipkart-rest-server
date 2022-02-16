@@ -48,62 +48,49 @@ exports.getAllProductsBySlug = (req, res) => {
 	const { slug } = req.params;
 
 	Category.findOne({ slug: slug })
-		.select("_id")
+		.select("_id type")
 		.exec((error, category) => {
 			if (error) {
-				return res.status(400).json({
-					error,
-				});
+				return res.status(400).json({ error });
 			}
 			if (category) {
-				// res.status(200).json({
-				// 	category,
-				// });
 				ProductModel.find({ category: category._id })
 					// .populate({ path: "category", select: "_id name" })
 					.exec((productError, productsList) => {
 						if (productError) {
-							return res.status(400).json({
-								error: productError,
-							});
+							return res.status(400).json({ error: productError });
 						}
 
-						res.status(200).json({
-							products: productsList,
-							productsByPrice: {
-								under5k: productsList.filter(
-									(product) => product.price <= 5000
-								),
-								under10k: productsList.filter(
-									(product) =>
-										product.price > 5000 &&
-										product.price <= 10000
-								),
-								under15k: productsList.filter(
-									(product) =>
-										product.price > 10000 &&
-										product.price <= 15000
-								),
-								under20k: productsList.filter(
-									(product) =>
-										product.price > 15000 &&
-										product.price <= 20000
-								),
-								under40k: productsList.filter(
-									(product) =>
-										product.price > 20000 &&
-										product.price <= 40000
-								),
-								premiumPhones: productsList.filter(
-									(product) => product.price >= 40000
-								),
-							},
-						});
+						if (category.type) {
+							if (productsList.length > 0) {
+								res.status(200).json({
+									products: productsList,
+									productsByPrice: {
+										under5k: productsList.filter((product) => product.price <= 5000),
+										under10k: productsList.filter(
+											(product) => product.price > 5000 && product.price <= 10000
+										),
+										under15k: productsList.filter(
+											(product) => product.price > 10000 && product.price <= 15000
+										),
+										under20k: productsList.filter(
+											(product) => product.price > 15000 && product.price <= 20000
+										),
+										under40k: productsList.filter(
+											(product) => product.price > 20000 && product.price <= 40000
+										),
+										premiumPhones: productsList.filter(
+											(product) => product.price >= 40000
+										),
+									},
+								});
+							}
+						} else {
+							res.status(200).json({ products: productsList });
+						}
 					});
 			} else {
-				res.status(404).json({
-					message: "Category not found",
-				});
+				res.status(404).json({ message: "Category not found" });
 			}
 		});
 };

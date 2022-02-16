@@ -50,9 +50,7 @@ exports.signup = (req, res) => {
 				});
 			}
 			if (createdUser) {
-				return res
-					.status(201)
-					.json({ message: "Admin created successfully....!" });
+				return res.status(201).json({ message: "Admin created successfully....!" });
 			}
 		});
 	});
@@ -60,29 +58,32 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
 	//find if email already exists or not
-	UserModel.findOne({ email: req.body.email }).exec((error, user) => {
+
+	console.log("in signin", { ...req.body });
+
+	UserModel.findOne({ email: req.body.email }).exec(async (error, user) => {
 		if (error) {
 			return res.status(500).json({
 				error,
 			});
 		}
 
+		// console.log(user.authenticate(req.body.password));
+
 		//if use exists with email then check its password and for admin check if role is admin or not
 		if (user) {
-			if (user.authenticate(req.body.password) && user.role === "admin") {
+			const isPasswordCorrect = await user.authenticate(req.body.password);
+			if (isPasswordCorrect && user.role === "admin") {
 				//jwt sign with the payload (any data) as 1st, secret key as 2nd and expiresIn as 3rd argument
-				const token = jwt.sign(
-					{ _id: user._id, role: user.role },
-					process.env.JWT_SECRET,
-					{ expiresIn: "3d" }
-				);
+				const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
+					expiresIn: "3d",
+				});
 
 				//saving token as a cookie
 				res.cookie("token", token, { expiresIn: "3d" });
 
 				// destructure from the user obj
-				const { _id, firstName, lastName, email, role, fullName } =
-					user;
+				const { _id, firstName, lastName, email, role, fullName } = user;
 
 				return res.status(200).json({
 					token,
