@@ -5,10 +5,7 @@ const {
 	updateCategories,
 	deleteCategories,
 } = require("../controllers/category");
-const {
-	requireSignin,
-	adminMiddleware,
-} = require("../middlewares/requireSignIn");
+const { requireSignin, adminMiddleware } = require("../middlewares/requireSignIn");
 const router = express.Router();
 
 const multer = require("multer");
@@ -46,11 +43,6 @@ router.post(
 	updateCategories
 );
 
-router.post(
-	"/category/delete",
-	requireSignin,
-	adminMiddleware,
-	deleteCategories
-);
+router.post("/category/delete", requireSignin, adminMiddleware, deleteCategories);
 
 module.exports = router;
