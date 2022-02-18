@@ -8,27 +8,14 @@ const {
 const { requireSignin, adminMiddleware } = require("../middlewares/requireSignIn");
 const router = express.Router();
 
-const multer = require("multer");
-const shortId = require("shortid");
-const path = require("path");
-
-const multerStorage = multer.diskStorage({
-	destination: (req, file, callback) => {
-		callback(null, path.join(path.dirname(__dirname), "uploads"));
-	},
-	filename: (req, file, callback) => {
-		callback(null, shortId.generate() + "-" + file.originalname);
-	},
-});
-
-const multerUpload = multer({ storage: multerStorage });
+const { uploadS3 } = require("../middlewares/fileUploadMiddleware");
 
 //create categories
 router.post(
 	"/category/create",
 	requireSignin,
 	adminMiddleware,
-	multerUpload.single("categoryPicture"),
+	uploadS3.single("categoryPicture"),
 	createCategory
 );
 
@@ -38,7 +25,7 @@ router.get("/category/getCategories", getAllCategories);
 router.post(
 	"/category/update",
 	requireSignin,
-	multerUpload.array("categoryPicture"),
+	uploadS3.array("categoryPicture"),
 	adminMiddleware,
 	updateCategories
 );

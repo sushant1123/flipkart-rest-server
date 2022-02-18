@@ -40,7 +40,6 @@ exports.getOrders = (req, res) => {
 };
 
 exports.getOrder = (req, res) => {
-	console.log(req.body);
 	Order.findOne({ _id: req.body.orderId })
 		.populate("items.productId", "_id name productPictures")
 		.lean() // to convert mongodb object into a plain js object

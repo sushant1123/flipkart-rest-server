@@ -6,25 +6,20 @@ const {
 	getProductDetailsById,
 	deleteProductById,
 } = require("../controllers/product");
+
 const { requireSignin, adminMiddleware } = require("../middlewares/requireSignIn");
 const router = express.Router();
-const multer = require("multer");
-const shortId = require("shortid");
-const path = require("path");
 
-const multerStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, path.join(path.dirname(__dirname), "uploads"));
-	},
-	filename: (req, file, cb) => {
-		cb(null, shortId.generate() + "-" + file.originalname);
-	},
-});
-
-const upload = multer({ storage: multerStorage });
+const { uploadS3 } = require("../middlewares/fileUploadMiddleware");
 
 //create a product
-router.post("/product/create", requireSignin, adminMiddleware, upload.array("productPicture"), createProduct);
+router.post(
+	"/product/create",
+	requireSignin,
+	adminMiddleware,
+	uploadS3.array("productPicture"),
+	createProduct
+);
 
 router.delete("/admin/product/deleteProductById", requireSignin, adminMiddleware, deleteProductById);
 

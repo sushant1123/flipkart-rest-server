@@ -7,7 +7,6 @@ const slugify = require("slugify");
 const shortid = require("shortid");
 
 exports.createCategory = (req, res) => {
-	console.log(req.body);
 	const categoryObj = {
 		name: req.body.name,
 		slug: `${slugify(req.body.name)}-${shortid.generate()}`,
@@ -15,7 +14,7 @@ exports.createCategory = (req, res) => {
 	};
 
 	if (req.file) {
-		categoryObj.categoryPicture = `/public/` + req.file.filename;
+		categoryObj.categoryPicture = req.file.location;
 	}
 
 	//if we get parentId in the req.body then only add to categoryObj
@@ -145,7 +144,6 @@ exports.updateCategories = async (req, res) => {
 //delete 1 or more categories
 exports.deleteCategories = async (req, res) => {
 	const { ids } = req.body.payload;
-	// console.log(ids);
 	const deletedCategoriesList = [];
 	for (let i = 0; i < ids.length; i++) {
 		const deleteCategory = await Category.findOneAndDelete({

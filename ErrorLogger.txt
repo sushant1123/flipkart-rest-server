@@ -50,3 +50,4 @@ Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' 
 Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
 Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
 Thu Feb 17 2022 - Product is not defined
+Fri Feb 18 2022 - The bucket does not allow ACLs
