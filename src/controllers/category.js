@@ -15,7 +15,7 @@ exports.createCategory = (req, res) => {
 	};
 
 	if (req.file) {
-		categoryObj.categoryPicture = `http://localhost:${process.env.PORT}/public/` + req.file.filename;
+		categoryObj.categoryPicture = `/public/` + req.file.filename;
 	}
 
 	//if we get parentId in the req.body then only add to categoryObj
