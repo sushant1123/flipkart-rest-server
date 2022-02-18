@@ -25,7 +25,7 @@ const errorLogger = require("./utilities/errorLogger");
 
 //env variables or constants
 dotenv.config();
-const PORT = process.env.port;
+const PORT = process.env.port || 2000;
 
 // mongodb connection: mongodb+srv://<username>:<password>@cluster0.hxqnm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
