@@ -59,16 +59,12 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
 	//find if email already exists or not
 
-	console.log("in signin", { ...req.body });
-
 	UserModel.findOne({ email: req.body.email }).exec(async (error, user) => {
 		if (error) {
 			return res.status(500).json({
 				error,
 			});
 		}
-
-		// console.log(user.authenticate(req.body.password));
 
 		//if use exists with email then check its password and for admin check if role is admin or not
 		if (user) {

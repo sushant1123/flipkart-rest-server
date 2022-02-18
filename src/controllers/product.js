@@ -65,6 +65,13 @@ exports.getAllProductsBySlug = (req, res) => {
 							if (productsList.length > 0) {
 								res.status(200).json({
 									products: productsList,
+									priceRange: {
+										under5k: 5000,
+										under10k: 10000,
+										under15k: 15000,
+										under20k: 20000,
+										under40k: 40000,
+									},
 									productsByPrice: {
 										under5k: productsList.filter((product) => product.price <= 5000),
 										under10k: productsList.filter(
@@ -95,18 +102,15 @@ exports.getAllProductsBySlug = (req, res) => {
 		});
 };
 
-exports.getAllProductsData = async (req, res) => {
-	try {
-		const products = await ProductModel.find({});
+//new
+exports.getProducts = async (req, res) => {
+	console.log(req.user);
+	const products = await ProductModel.find({ createdBy: req.user._id })
+		.select("_id name price quantity slug description productPictures category")
+		.populate({ path: "category", select: "_id name" })
+		.exec();
 
-		res.status(200).json({
-			products,
-		});
-	} catch (error) {
-		res.status(200).json({
-			error: error.response.data,
-		});
-	}
+	res.status(200).json({ products });
 };
 
 exports.getProductDetailsById = async (req, res) => {
@@ -129,5 +133,19 @@ exports.getProductDetailsById = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ error });
+	}
+};
+
+exports.deleteProductById = (req, res) => {
+	const { productId } = req.body.payload;
+	if (productId) {
+		ProductModel.deleteOne({ _id: productId }).exec((error, result) => {
+			if (error) return res.status(400).json({ error });
+			if (result) {
+				res.status(202).json({ result });
+			}
+		});
+	} else {
+		res.status(400).json({ error: "Params required" });
 	}
 };

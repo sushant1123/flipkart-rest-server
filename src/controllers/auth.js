@@ -5,15 +5,16 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const shortid = require("shortid");
 
+const generateJwtToken = (_id, role) => {
+	return jwt.sign({ _id, role }, process.env.JWT_SECRET, { expiresIn: "3d" });
+};
+
 exports.signup = (req, res) => {
 	//finding if email already exists or not.
 	UserModel.findOne({ email: req.body.email }).exec(async (error, user) => {
 		//if error return the error response
 		if (error) {
-			return res.status(400).json({
-				message: "Something went wrong",
-				errorMsg: JSON.stringify(error),
-			});
+			return res.status(400).json({ message: "Something went wrong" });
 		}
 
 		//if email already present/registered
@@ -44,13 +45,16 @@ exports.signup = (req, res) => {
 
 		userObj.save((error, createdUser) => {
 			if (error) {
-				return res.status(400).json({
-					message: "Something went wrong",
-					errorMsg: error.message,
-				});
+				return res.status(400).json({ message: "Something went wrong" });
 			}
+
 			if (createdUser) {
-				return res.status(201).json({ message: "User created successfully....!" });
+				const token = generateJwtToken(createdUser._id, createdUser.role);
+				const { _id, firstName, lastName, email, role, fullName } = createdUser;
+				return res.status(201).json({
+					token,
+					user: { _id, firstName, lastName, email, role, fullName },
+				});
 			}
 		});
 	});
@@ -71,21 +75,12 @@ exports.signin = (req, res) => {
 			const isPasswordCorrect = await user.authenticate(req.body.password);
 			if (isPasswordCorrect) {
 				//jwt sign with the payload as 1st, secret key as 2nd and expiresIn as 3rd argument
-				const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
-					expiresIn: "3d",
-				});
+				const token = generateJwtToken(user._id, user.role);
 				const { _id, firstName, lastName, email, role, fullName } = user;
 
 				return res.status(200).json({
 					token,
-					user: {
-						_id,
-						firstName,
-						lastName,
-						email,
-						role,
-						fullName,
-					},
+					user: { _id, firstName, lastName, email, role, fullName },
 				});
 			} else {
 				return res.status(400).json({

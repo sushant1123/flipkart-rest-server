@@ -26,3 +26,27 @@ Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is 
 Sun Feb 13 2022 - Cannot destructure property 'banners' of 'req.files' as it is undefined.
 Tue Feb 15 2022 - jwt expired
 Wed Feb 16 2022 - jwt expired
+Wed Feb 16 2022 - jwt expired
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Cannot destructure property 'productId' of 'req.body.payload' as it is undefined.
+Thu Feb 17 2022 - Product is not defined

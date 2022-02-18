@@ -2,13 +2,11 @@ const express = require("express");
 const {
 	createProduct,
 	getAllProductsBySlug,
-	getAllProductsData,
+	getProducts,
 	getProductDetailsById,
+	deleteProductById,
 } = require("../controllers/product");
-const {
-	requireSignin,
-	adminMiddleware,
-} = require("../middlewares/requireSignIn");
+const { requireSignin, adminMiddleware } = require("../middlewares/requireSignIn");
 const router = express.Router();
 const multer = require("multer");
 const shortId = require("shortid");
@@ -26,15 +24,11 @@ const multerStorage = multer.diskStorage({
 const upload = multer({ storage: multerStorage });
 
 //create a product
-router.post(
-	"/product/create",
-	requireSignin,
-	adminMiddleware,
-	upload.array("productPicture"),
-	createProduct
-);
+router.post("/product/create", requireSignin, adminMiddleware, upload.array("productPicture"), createProduct);
 
-router.get("/products/getProducts", getAllProductsData);
+router.delete("/admin/product/deleteProductById", requireSignin, adminMiddleware, deleteProductById);
+
+router.post("/admin/products/getProducts", requireSignin, adminMiddleware, getProducts);
 
 //fetch product by slug id
 router.get("/products/:slug", getAllProductsBySlug);
